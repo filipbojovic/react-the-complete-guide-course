@@ -1,9 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import ExpenseItem from './components/ExpenseItem';
-import Expenses from './components/Expenses';
+import ExpenseItem from './components/Expenses/ExpenseItem';
+import Expenses from './components/Expenses/Expenses';
 
-function App() {
+
+const App = () => {
   const expenses = [
     { id: 'e1', title: 'Car Insurance', amount: 294.67, date: new Date(2023, 11, 3) },
     { id: 'e2', title: 'MDCS', amount: 294.67, date: new Date(2023, 11, 3) },
@@ -14,7 +15,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Expenses items={expenses}/>
+
+        <Expenses items={expenses} />
+
       </header>
     </div>
   );
