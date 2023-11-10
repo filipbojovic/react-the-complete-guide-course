@@ -1,9 +1,9 @@
-import keyConceptsImage from './assets/images/key-concepts.png';
+import Header from './components/header/Header.js'
 import componentsImage from './assets/images/components.png';
 import stateImage from './assets/images/state.png';
 import eventsImage from './assets/images/events.png';
-import Card from "./Card.js"
-import CardItem from './CardItem.js';
+import Card from "./components/Concept/Card.js"
+import CardItem from './components/Concept/CardItem.js';
 
 const concepts = [
   {
@@ -12,7 +12,7 @@ const concepts = [
     description:
       'Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. Components can receive data via props, and they can render dynamic output using JSX.',
   },
-  {
+  { 
     title: 'State',
     image: stateImage,
     description:
@@ -29,11 +29,7 @@ const concepts = [
 function App() {
   return (
     <div>
-      <header>
-        <img src={keyConceptsImage} alt="Medal badge with a star" />
-        <h1>Key React Concepts</h1>
-        <p>Selected key React concepts you should know about</p>
-      </header>
+      <Header />
       <Card id="concepts">
         <CardItem item={concepts[0]}></CardItem>
         <CardItem item={concepts[1]}></CardItem>
