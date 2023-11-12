@@ -12,9 +12,15 @@ const App = () => {
     { id: 'e3', title: 'Custom Keyboard', amount: 294.67, date: new Date(2023, 11, 3) },
     { id: 'e4', title: 'Mice', amount: 294.67, date: new Date(2023, 11, 3) },
   ];
+
+  const addExpenseHandler = (expense) => {
+    console.log('In App.js')
+    console.log(expenses);
+  }
+
   return (
     <div className="App">
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
