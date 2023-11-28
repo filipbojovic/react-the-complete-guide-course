@@ -10,7 +10,8 @@ const NewExpense = (props) => {
             ...enteredExpenseData, // pull all the key-values from given object
             id: Math.random().toString()
         };
-        props.onAddExpense(); // this one comes from App.js
+        console.log(expenseData)
+        props.onAddExpense(expenseData); // this one comes from App.js
     };
 
     return <div className='new-expense'>
