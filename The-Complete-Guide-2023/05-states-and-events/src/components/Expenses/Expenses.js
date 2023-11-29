@@ -4,6 +4,7 @@ import './Expenses.css'
 import ExpensesFilter from "./ExpensesFilter";
 import { useState } from "react";
 import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
 // this component controls expensesFilter component (its values)
 const Expenses = (props) => {
@@ -21,6 +22,7 @@ const Expenses = (props) => {
         <li>
             <Card className="expenses">
                 <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
+                <ExpensesChart expenses={filteredExpenses} />
                 <ExpensesList items={filteredExpenses} />
                 {/* another approach 1*/}
                 {/* {filteredExpenses.length === 0 && <p>No Expenses found.</p>}
