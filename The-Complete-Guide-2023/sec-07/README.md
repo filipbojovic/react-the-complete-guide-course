@@ -1,0 +1,1 @@
+Run command `export NODE_OPTIONS=--openssl-legacy-provider` to fix the error `digital envelope routines::unsupported"`
