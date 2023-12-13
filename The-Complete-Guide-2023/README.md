@@ -25,3 +25,6 @@
   <h3>TBD</h3>
   <img src='https://github.com/filipbojovic/ReactCourses/blob/main/The-Complete-Guide-2023/sec-09-practice-project/project_2/screenshots/app3.png'>
 </div>
+
+## Section 10
+<div align="justify">The concept of Fragments, Portals and Refs is introduced to project 2 of Section 09. These changes are not merged to main.</div><br>
