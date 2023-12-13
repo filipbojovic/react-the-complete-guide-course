@@ -14,10 +14,12 @@ function App() {
   }
 
   return (
-    <div>
+    // <>
+    <React.Fragment>
       <AddUser onAddUser={usersListHandler} />
       <UsersList users={usersList} />
-    </div>
+    </React.Fragment> 
+    // </> -> either use <> or <React.Fragment>. '<>' can be used only if project is setup so it supports it.
   );
 }
 
