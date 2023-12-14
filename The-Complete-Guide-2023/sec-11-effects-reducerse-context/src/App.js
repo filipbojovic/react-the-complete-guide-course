@@ -1,0 +1,54 @@
+import React, { useContext } from 'react';
+
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
+import AuthContext from './store/auth-context';
+
+function App() {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // useEffect(() => {
+  //   const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+  //   if (storedUserLoggedInInformation === '1') {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
+
+  // const loginHandler = (email, password) => {
+  // We should of course check email and password
+  // But it's just a dummy/ demo anyways
+  // localStorage.setItem('isLoggedIn', '1') // store values in brower's local storage
+  //   setIsLoggedIn(true);
+  // };
+
+  // const logoutHandler = () => {
+  //   localStorage.setItem('isLoggedIn', '0');
+  //   setIsLoggedIn(false);
+  // };
+
+  // return (
+  //   <AuthContext.Provider
+  //     value={{
+  //       isLoggedIn: isLoggedIn, // this will be updated by React whenever isLoggedIn is changed and this object will be sent to all listening components
+  //       onLogout: logoutHandler // every listening component will be able to utilize logoutHandler
+  //     }}>
+  /* <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} /> Removed because of the usage of React Context. No need to forward data through props*/
+  /* <MainHeader onLogout={logoutHandler} /> */ 
+
+  const ctx = useContext(AuthContext);
+
+  return (
+    <React.Fragment>
+      <MainHeader />
+      <main>
+        {/* in order to being able to get inf about 'isLoggedIn'. Also onLogin={loginHandler} and onLogout={logoutHandler} props are removed because they are not anymore maintained here */}
+        {!ctx.isLoggedIn && <Login />}
+        {ctx.isLoggedIn && <Home />}
+      </main>
+      {/* </AuthContext.Provider> */}
+    </React.Fragment >
+  );
+}
+
+export default App;
