@@ -28,3 +28,6 @@
 
 ## Section 10
 <div align="justify">The concept of Fragments, Portals and Refs is introduced to project 2 of Section 09. These changes are not merged to main.</div><br>
+
+## Section 11
+<div align="justify">The concept of Effects, Reducers and Context.</div><br>
