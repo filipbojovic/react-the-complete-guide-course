@@ -17,7 +17,7 @@ export const fetchCartData = () => {
         try {
             const cartData = await fetchData();
             dispatch(cartActions.replaceCart({
-                items: cartData.items || [],
+                items: cartData.items || [], // to avoid send of null value for items
                 totalQuantity: cartData.totalQuantity
             }));
 

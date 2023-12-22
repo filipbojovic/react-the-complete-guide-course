@@ -26,8 +26,9 @@ function App() {
       return;
     }
 
+    // to prevent 'GET' call to database if the state was changed by using 'replaceCartItems'
     if (!cart.changed) {
-return;
+      return;
     }
 
     dispatch(sendCartData(cart));
