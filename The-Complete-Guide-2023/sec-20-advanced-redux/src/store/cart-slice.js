@@ -1,0 +1,45 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState: {
+        items: [],
+        totalQuantity: 0,
+        changed: false // to avoid 'get' request to database when 'replaceCart' is called
+    },
+    reducers: {
+        replaceCart(state, action) {
+            state.totalQuantity = action.payload.totalQuantity;
+            state.items = action.payload.items;
+        },
+        addItemToCart(state, action) {
+            const newItem = action.payload;
+            const existingItem = state.items.find((item) => item.id === newItem.id);
+            state.totalQuantity += 1;
+            state.changed = true;
+            if (!existingItem) {
+                // with reduxToolkit it is possible to change the object inplace because toolkit will make this change as immutable in the background
+                state.items.push({ id: newItem.id, price: newItem.price, quantity: 1, totalPrice: newItem.price, name: newItem.title })
+            } else {
+                existingItem.quantity++;
+                existingItem.totalPrice += newItem.price;
+            }
+        },
+        removeItemFromCart(state, action) {
+            const id = action.payload;
+            const existingItem = state.items.find(item => item.id === id);
+            state.totalQuantity -= 1;
+            state.changed = true;
+            if (existingItem.quantity === 1) {
+                state.items = state.items.filter(item => item.id !== id);
+            } else {
+                existingItem.quantity -= 1;
+                existingItem.totalPrice -= existingItem.price;
+            }
+        }
+    }
+});
+
+export const cartActions = cartSlice.actions;
+
+export default cartSlice;
