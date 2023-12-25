@@ -23,7 +23,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import HomePage from './pages/Home'
 import EventsPage, { loader as eventsLoader } from './pages/Events'
-import EventDetailPage from './pages/EventDetail'
+import EventDetailPage, { loader as eventDetailLoader } from './pages/EventDetail'
 import NewEventPage from './pages/NewEvent'
 import EditEventPage from './pages/EditEvent'
 import RootLayout from './pages/Root'
@@ -42,9 +42,17 @@ const router = createBrowserRouter([
         element: <EventsRootLayout />,
         children: [
           { index: true, element: <EventsPage />, loader: eventsLoader },
-          { path: ':eventId', element: <EventDetailPage /> },
+          {
+            // nesting routes in order to use only one eventDetailLoader for eventId and eventId/edit paths
+            path: ':eventId',
+            id: 'event-detail', // it is required to use loader of EventDetailPage inside EditEventPage (031 - 06:30)
+            loader: eventDetailLoader,
+            children: [
+              { index: true, element: <EventDetailPage /> },
+              { path: 'edit', element: <EditEventPage /> }
+            ]
+          },
           { path: 'new', element: <NewEventPage /> }, // new will override :eventId
-          { path: ':eventId/edit', element: <EditEventPage /> }
         ]
       },
     ]
