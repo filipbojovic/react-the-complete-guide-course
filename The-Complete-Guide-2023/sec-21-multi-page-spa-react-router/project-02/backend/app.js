@@ -5,6 +5,8 @@ const eventRoutes = require('./routes/events');
 
 const app = express();
 
+app.disable('etag');
+
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
