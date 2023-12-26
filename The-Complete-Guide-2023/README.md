@@ -1,4 +1,5 @@
 # The Complete Guide 2023
+<div align='justify'><a href='https://www.udemy.com/course/react-the-complete-guide-incl-redux/'>Course link</a></div>
 
 ## Section 09
 <div align="justify">Two projects that includes everything learned in the previuos sections.</div><br>
