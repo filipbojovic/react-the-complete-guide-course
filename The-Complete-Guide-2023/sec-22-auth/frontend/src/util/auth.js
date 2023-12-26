@@ -36,4 +36,6 @@ export const checkAuthLoader = () => {
     if (!token) {
         return redirect('/auth');
     }
+
+    return null;
 }

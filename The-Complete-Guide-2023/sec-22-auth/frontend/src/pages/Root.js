@@ -19,7 +19,7 @@ function RootLayout() {
       submit(null, { action: '/logout', method: 'post' });
       return;
     }
-    
+
     const remainingTokenDuration = getTokenDuration();
     console.log(remainingTokenDuration);
 
