@@ -43,6 +43,9 @@ export const action = async ({ request, params }) => {
   const token = resData.token;
 
   localStorage.setItem('token', token);
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1); // creates data which is 1h in the future
+  localStorage.setItem('expiration', expiration.toISOString());
 
   return redirect('/');
 }

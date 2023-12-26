@@ -14,12 +14,16 @@ import RootLayout from './pages/Root';
 import { action as manipulateEventAction } from './components/EventForm';
 import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 import AuthenticationPage, { action as authAction } from './pages/Authentication';
+import { action as logoutAction } from './pages/Logout';
+import { checkAuthLoader, tokenLoader } from './util/auth';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    loader: tokenLoader, // it is used to extract token from local storage and the token will be available through the 'loader data' to all other child routes. If token is changed, this component will be re-evaluated
+    id: 'root', // in order to easily access loader data through other child components by using useRouterLoaderData() hook, we have to add 'id'.
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -50,6 +54,7 @@ const router = createBrowserRouter([
                 path: 'edit',
                 element: <EditEventPage />,
                 action: manipulateEventAction,
+                loader: checkAuthLoader
               },
             ],
           },
@@ -57,6 +62,7 @@ const router = createBrowserRouter([
             path: 'new',
             element: <NewEventPage />,
             action: manipulateEventAction,
+            loader: checkAuthLoader
           },
         ],
       },
@@ -65,6 +71,10 @@ const router = createBrowserRouter([
         element: <NewsletterPage />,
         action: newsletterAction,
       },
+      {
+        path: 'logout',
+        action: logoutAction
+      }
     ],
   },
 ]);
