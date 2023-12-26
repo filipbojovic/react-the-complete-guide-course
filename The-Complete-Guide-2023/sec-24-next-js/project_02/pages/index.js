@@ -1,34 +1,21 @@
+import { MongoClient } from "mongodb";
 import MeetupList from "/components/meetups/MeetupList";
-
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "The First Meetup",
-    image:
-      "https://s.yimg.com/ny/api/res/1.2/a4EsYUFSaM2PkpTQ.C43gA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTI0MDA7aD0xMzUwO2NmPXdlYnA-/https://media.zenfs.com/en/toms_guide_826/2d37c93556506a4dfb1e763b2c8206c1",
-    address: "Some address 5, 12345 City",
-    description: "First meetup",
-  },
-  {
-    id: "m2",
-    title: "The Second Meetup",
-    image:
-      "https://s.yimg.com/ny/api/res/1.2/a4EsYUFSaM2PkpTQ.C43gA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTI0MDA7aD0xMzUwO2NmPXdlYnA-/https://media.zenfs.com/en/toms_guide_826/2d37c93556506a4dfb1e763b2c8206c1",
-    address: "Some address 5, 12345 City",
-    description: "Second meetup",
-  },
-  {
-    id: "m3",
-    title: "The Third Meetup",
-    image:
-      "https://s.yimg.com/ny/api/res/1.2/a4EsYUFSaM2PkpTQ.C43gA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTI0MDA7aD0xMzUwO2NmPXdlYnA-/https://media.zenfs.com/en/toms_guide_826/2d37c93556506a4dfb1e763b2c8206c1",
-    address: "Some address 4, 12345 City",
-    description: "Third meetup",
-  },
-];
+import Head from "next/head";
+import { Fragment } from "react";
 
 const HomePage = (props) => {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name="description"
+          content="Browse a huge list of highly active React meetups!"
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </Fragment>
+  );
 };
 
 // here is not good to use serverSideProps because data doesn't change very frequently (several times in a second).
@@ -47,15 +34,31 @@ const HomePage = (props) => {
 
 export const getStaticProps = async () => {
   // any code specified here will never be run on the client side, but only on the server side.
+  // credentials won't be exposed
+  const client = await MongoClient.connect(
+    "mongodb+srv://fikakv:FikaRbc29!@cluster0.zlwk2qy.mongodb.net/?retryWrites=true&w=majority"
+  );
+  const db = client.db();
 
+  // if the collection doesn't exist, it will be created on the fly, the same as db
+  const meetupsCollection = db.collection("meetups");
+
+  // it will find all the docs inside meetups collection
+  const meetups = await meetupsCollection.find().toArray();
+  client.close();
   // an object has to be returned always and it must contain 'props' property
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map((mu) => ({
+        title: mu.title,
+        address: mu.address,
+        image: mu.image,
+        id: mu._id.toString(),
+      })),
     },
     // number of seconds nextJs will wait before regenerates the page for an incoming request. So, every 10s it will regenerate the page if there are incoming requests.
     // that means the page won't be outdated more than 10 seconds.
-    revalidate: 10
+    revalidate: 10,
   };
 };
 
